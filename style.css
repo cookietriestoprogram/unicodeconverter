@@ -1,0 +1,99 @@
+body {
+  font-family: 'Segoe UI';
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  /* background-color: #001220; */
+  justify-content: center;
+
+  }
+
+.container {
+  
+
+  min-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 45px; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #4CAF50;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #4CAF50;
+  border-radius: 8px;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+/* Recommendation list */
+.recommendations {
+  margin-top: 20px;
+}
+
+.recommendation {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.recommendation:hover {
+  background-color: #e0e0e0;
+}
+

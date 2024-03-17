@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicode Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/noty@3.2.0/lib/noty.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Unicode Converter</h2>
+    <label for="unicode">Unicode:</label>
+    <input type="text" id="unicode" placeholder="Enter Unicode code point (e.g., 20AC)">
+    <br>
+    <label for="utf8">UTF-8:</label>
+    <input type="text" id="utf8" placeholder="Enter UTF-8">
+    <br>
+    <label for="utf16">UTF-16:</label>
+    <input type="text" id="utf16" placeholder="Enter UTF-16">
+    <br>
+    <label for="utf32">UTF-32:</label>
+    <input type="text" id="utf32" placeholder="Enter UTF-32">
+    <br>
+
+    <button onclick="convert()">Convert</button>
+    <h3>Conversion History</h3>
+    <div class="recommendations" id="recommendations"></div>
+</div>
+
+
+
+</body>
+</html>
