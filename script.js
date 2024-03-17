@@ -21,13 +21,13 @@ function convert() {
 
     document.getElementById('utf8').value = utf8;
     document.getElementById('utf16').value = utf16;
-    document.getElementById('utf32').value = '0x' + codepoint.toString(16).padStart(8, '0');
+    document.getElementById('utf32').value = '0x ' + codepoint.toString(16).padStart(8, '0');
 
     conversions.push({
         unicode: unicodeInput,
         utf8: utf8,
         utf16: utf16,
-        utf32: '0x' + codepoint.toString(16).padStart(8, '0')
+        utf32: '0x ' + codepoint.toString(16).padStart(8, '0')
     });
 
     updateRecommendations();
@@ -59,22 +59,22 @@ function updateRecommendations() {
 
 function convertToUTF8(codepoint) {
     if (codepoint <= 0x7F) {
-        return '0x' + codepoint.toString(16).padStart(2, '0');
+        return '0x ' + codepoint.toString(16).padStart(2, '0');
     } else if (codepoint <= 0x7FF) {
-        return '0x' + ((codepoint >> 6) + 0xC0).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
+        return '0x ' + ((codepoint >> 6) + 0xC0).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
     } else if (codepoint <= 0xFFFF) {
-        return '0x' + ((codepoint >> 12) + 0xE0).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 6) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
+        return '0x ' + ((codepoint >> 12) + 0xE0).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 6) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
     } else {
-        return '0x' + ((codepoint >> 18) + 0xF0).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 12) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 6) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
+        return '0x ' + ((codepoint >> 18) + 0xF0).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 12) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + (((codepoint >> 6) & 0x3F) + 0x80).toString(16).padStart(2, '0') + ' ' + ((codepoint & 0x3F) + 0x80).toString(16).padStart(2, '0');
     }
 }
 
 function convertToUTF16(codepoint) {
     if (codepoint <= 0xFFFF) {
-        return '0x' + codepoint.toString(16).padStart(4, '0');
+        return '0x ' + codepoint.toString(16).padStart(4, '0');
     } else {
         var highSurrogate = Math.floor((codepoint - 0x10000) / 0x400) + 0xD800;
         var lowSurrogate = (codepoint - 0x10000) % 0x400 + 0xDC00;
-        return '0x' + highSurrogate.toString(16).padStart(4, '0') + ' ' + lowSurrogate.toString(16).padStart(4, '0');
+        return '0x ' + highSurrogate.toString(16).padStart(4, '0') + ' ' + lowSurrogate.toString(16).padStart(4, '0');
     }
 }
