@@ -16,7 +16,7 @@ function changeName() {
   var title = document.getElementById("title");
 
   if (!translate) {
-    title.textContent = "UTF Translate";
+    title.textContent = "UTF Translator";
     btn.textContent = "Translate";
   } else {
     title.textContent = "Unicode Converter";
