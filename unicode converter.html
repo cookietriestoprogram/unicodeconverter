@@ -27,22 +27,28 @@
       <input
         type="text"
         id="unicode"
-        placeholder="Enter Unicode code point (e.g., 20AC)"
+        placeholder="Enter Unicode (e.g., 20AC)"
       />
       <br />
       <label for="utf8">UTF-8:</label>
-      <input type="text" id="utf8" placeholder="Enter UTF-8" />
+      <input type="text" id="utf8" />
       <br />
       <label for="utf16">UTF-16:</label>
-      <input type="text" id="utf16" placeholder="Enter UTF-16" />
+      <input type="text" id="utf16" />
       <br />
       <label for="utf32">UTF-32:</label>
-      <input type="text" id="utf32" placeholder="Enter UTF-32" />
+      <input type="text" id="utf32"/>
       <br />
 
       <button onclick="convert()" id="submit-btn">Convert</button>
-      <h3>Conversion History</h3>
-      <div class="recommendations" id="recommendations"></div>
+      <h3>Steps</h3>
+      <div id="steps">
+        <h3>Unicode to UTF 8 Steps</h3>
+          <div id="utf8steps"></div> 
+        <h3>Unicode to UTF 16 Steps</h3> 
+          <div id="utf16steps"></div>
+      </div>
+
     </div>
   </body>
 </html>
