@@ -155,7 +155,7 @@ function convert() {
     }
 
     // UTF-16 to Unicode
-    if (utf16Input != "") {
+    if (utf16Input != "" && utf16Input !== "00000000") {
       var utf16 = parseInt(utf16Input, 16);
       if ((utf16) => 0xffff) {
         var unicodeRep = translateUTF16(utf16);
