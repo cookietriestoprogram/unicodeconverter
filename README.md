@@ -5,22 +5,19 @@ In the first section of the program we convert them to various UTF formats.
 
 **UTF-8** is a variable-length encoding method where each character can be represented using one to four bytes. It is backward compatible with ASCII, making it efficient for English characters.
 
-**Unicode to UTF-8** 
-
+**Unicode to UTF-8:** 
 To convert Unicode to UTF-8 format we...
 
 
 **UTF-16** uses two or four bytes to represent each character. It is ideal for most Asian text but requires more bytes for English characters 1.
 
-**Unicode to UTF-16**
-
+**Unicode to UTF-16:**
 To chuchu.
 
 
 **UTF-32** is a fixed-length encoding scheme that uses four bytes for each character, providing a direct mapping between code points and bytes.
 
-**Unicode to UTF-32**
-
+**Unicode to UTF-32:**
 To convert Unicode to UTF-32, first ensure that the Unicode code point is within the valid range for UTF-32, which is from 0x00000000 to 0x10FFFF. Since UTF-32 uses a fixed-length encoding scheme with four bytes for each character, providing a direct mapping between code points and bytes, the conversion process involves taking the Unicode code point and encoding it as a 32-bit sequence. This is done by converting the code point to its hexadecimal representation and then padding it with zeros to ensure it is 8 hexadecimal digits long, which corresponds to 4 bytes. This method ensures that each Unicode character is represented in UTF-32 as a fixed-length sequence.
 
 
