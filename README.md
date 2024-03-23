@@ -39,6 +39,9 @@ To convert Unicode to UTF-16 we:
 
 # Unicode translator 
 In the second section of the program, UTF encoded characters are then translated back into their Unicode equivalent. 
+**UTF-8 to Unicode** <br>
+- UTF-8 uses a variable-length encoding scheme, where characters can be represented using one to four bytes. The first byte of the sequence indicates the number of bytes used to represent the character. By examining the binary representation of the first byte, you can determine the length of the sequence. Each subsequent byte in the sequence contributes its relevant bits to form the Unicode code point. This process allows you to decode the UTF-8 encoded character back into its original Unicode code point, which can then be used to represent the character in Unicode.
+
 
 **UTF-16 to Unicode** <br>
 - To convert UTF-16 to Unicode, the inputted value must have 1 to 8 hex digits because UTF-16 has max length encoding of 16 bits. If the input is less than or equal to 16 bits or 4 hex digits, display the inputted hex digit as the unicode. Otherwise, separate the UTF-16 code unit into upper and lower surrogates. Then calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit. For the lower surrogate value, subtract 0xdc00 lower-surrogate unit. The two surrogates result must then be combined and added with 0x10000 to translate it back to unicode.
