@@ -8,9 +8,9 @@ In the first section of the program we convert them to various UTF formats.
 **Unicode to UTF-8:** 
 To convert Unicode to UTF-8 format we:
 
-Check the Range: Determine if the Unicode character falls within the ASCII range (0x0000 to 0x007F). Characters in this range can be represented directly in UTF-8 using a single byte and can be directly encoded. For example, the character 'A' (U+0041) is encoded as 0x41 in UTF-8.
+- Check the Range: Determine if the Unicode character falls within the ASCII range (0x0000 to 0x007F). Characters in this range can be represented directly in UTF-8 using a single byte and can be directly encoded. For example, the character 'A' (U+0041) is encoded as 0x41 in UTF-8.
 
-Encode Non-ASCII Characters: For characters outside the ASCII range, UTF-8 uses a variable-length encoding scheme. Characters in the range U+0080 to U+07FF are encoded using two bytes, while characters in the range U+0800 to U+FFFF are encoded using three bytes. Characters beyond U+FFFF are encoded using four bytes.
+- Encode Non-ASCII Characters: For characters outside the ASCII range, UTF-8 uses a variable-length encoding scheme. Characters in the range U+0080 to U+07FF are encoded using two bytes, while characters in the range U+0800 to U+FFFF are encoded using three bytes. Characters beyond U+FFFF are encoded using four bytes.
 Construct the UTF-8 Byte Sequence: For each character, construct the appropriate byte sequence according to its Unicode code point and the rules of UTF-8 encoding.
 
 **UTF-16** uses two or four bytes to represent each character. It is ideal for most Asian text but requires more bytes for English characters 1.
@@ -18,9 +18,9 @@ Construct the UTF-8 Byte Sequence: For each character, construct the appropriate
 **Unicode to UTF-16:**
 To convert Unicode to UTF-16 we:
 
-Check the Range: Determine if the Unicode character falls within the Basic Multilingual Plane (BMP), which includes characters from U+0000 to U+FFFF. Characters outside the BMP (U+10000 to U+10FFFF) require a surrogate pair in UTF-16. While characters within it can be converted through direct mapping.
+- Check the Range: Determine if the Unicode character falls within the Basic Multilingual Plane (BMP), which includes characters from U+0000 to U+FFFF. Characters outside the BMP (U+10000 to U+10FFFF) require a surrogate pair in UTF-16. While characters within it can be converted through direct mapping.
 
-Encode Characters Beyond the BMP: Characters outside the BMP are represented using a surrogate pair in UTF-16. This involves encoding the character as two 16-bit values, with the first value in the range U+D800 to U+DBFF and the second value in the range U+DC00 to U+DFFF. The first value is known as the high surrogate, and the second value is known as the low surrogate. Together, they form a single character in the Unicode standard.
+- Encode Characters Beyond the BMP: Characters outside the BMP are represented using a surrogate pair in UTF-16. This involves encoding the character as two 16-bit values, with the first value in the range U+D800 to U+DBFF and the second value in the range U+DC00 to U+DFFF. The first value is known as the high surrogate, and the second value is known as the low surrogate. Together, they form a single character in the Unicode standard.
 
 **UTF-32** is a fixed-length encoding scheme that uses four bytes for each character, providing a direct mapping between code points and bytes.
 
