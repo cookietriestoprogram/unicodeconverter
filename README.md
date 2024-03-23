@@ -1,6 +1,8 @@
 # Unicode Converter
 **Unicode** is a universal character encoding standard that assigns a unique number to every character and symbol in the world's languages. It ensures that you can get or combine data using any combination of languages, as no other encoding standard covers all languages 1.
 In the first section of the program we convert them to various UTF formats. 
+
+
 **UTF-8** is a variable-length encoding method where each character can be represented using one to four bytes. It is backward compatible with ASCII, making it efficient for English characters.
 
 To convert Unicode to UTF-8 format we...
