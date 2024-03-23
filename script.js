@@ -215,6 +215,7 @@ function generateUTF16toUnicodeSteps(utf16) {
 
   const unicodeCodePoint = (upper << 10) + lower + 0x10000;
 
+  //fixed part
   steps.push(
     "1: Separate the UTF-16 code unit into upper and lower surrogates."
   );
