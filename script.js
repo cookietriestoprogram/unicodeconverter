@@ -1,5 +1,5 @@
 function valid_unicode(i) {
-  return /^[0-9A-Fa-f]{4,6}$/u.test(i);
+  return /^[0-9A-Fa-f]{4,6}$/u.test(i) || parseInt(i) === 0;
 }
 
 function valid_UTF16(utf16Text) {
@@ -180,6 +180,7 @@ function convert() {
 
   // UNICODE to UTF
   var codepoint = parseInt(unicodeInput, 16);
+  console.log(codepoint)
   var utf8 = "0x " + convertToUTF8(codepoint).toUpperCase();
   var utf8Steps = generateUTF8ConversionSteps(codepoint);
 
