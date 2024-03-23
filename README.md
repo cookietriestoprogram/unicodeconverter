@@ -46,6 +46,7 @@ To convert UTF-32 to Unicode, the inputted value must have 1 to 8 hex digits bec
 | Test with Input Error| Test with correct length |
 | ------- | ------- |
 |![UTF16_Unicode](TranslateUTF16-error.png)|![UTF16_Unicode](TranslateUTF16-accept.png)|
+|  Input is more than 8 bits  |  Input has valid bits  |
 
 **UTF-32 to Unicode:**
 To convert UTF-32 to Unicode, first check if the number of hex digits are 8, as UTF-32 uses fixed-length encoding with 32 bits. If the input is valid, directly copy each character from the UTF-32 format to Unicode, as UTF-32 represents each character as a fixed-length 32-bit sequence. This direct mapping allows for a straightforward conversion process, where each 8-digit hexadecimal number corresponds to a unique Unicode code point. This method ensures that the conversion is precise and efficient, making it suitable for applications requiring precise control over character encoding.
