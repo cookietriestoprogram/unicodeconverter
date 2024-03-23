@@ -1,5 +1,6 @@
 # Recording Link
 [Recording](https://drive.google.com/drive/folders/1-UHB07ME1CerxTOGly9Qz1lIjNPBM-iL)
+(Uploaded through drive because file is too big)
 
 # Unicode Converter
 **Unicode** is a universal character encoding standard that assigns a unique number to every character and symbol in the world's languages. It ensures that you can get or combine data using any combination of languages, as no other encoding standard covers all languages 1.
