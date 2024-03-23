@@ -46,12 +46,12 @@ In the second section of the program, UTF encoded characters are then translated
 | Test Case 1 | Test Case 2 |
 | ------- | ------- |
 | ![Test 1](UTF8-1.png) | ![Test 2](UTF8-2.png) |
-| Input is Zero| Input is valid |
+| Input is valid| Input is valid |
 
 | Test Case 3 | Test Case 4 |
 | ------- | ------- |
 | ![Test 3](UTF8-3.png) | ![Test 4](UTF8-4.png) |
-| Input is Valid | Invalid input |
+| Input is zero | Invalid valid |
 
 **UTF-16 to Unicode** <br>
 - To convert UTF-16 to Unicode, the inputted value must have 1 to 8 hex digits because UTF-16 has max length encoding of 16 bits. If the input is less than or equal to 16 bits or 4 hex digits, display the inputted hex digit as the unicode. Otherwise, separate the UTF-16 code unit into upper and lower surrogates. Then calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit. For the lower surrogate value, subtract 0xdc00 lower-surrogate unit. The two surrogates result must then be combined and added with 0x10000 to translate it back to unicode.
