@@ -5,6 +5,10 @@ function valid_unicode(i) {
 }
 
 //TODO: valid_utf8 function
+function valid_UTF8(utf8Text) {
+  // Regular expression pattern to match valid UTF-16 encoded characters
+  return /^[0-9A-Fa-f]{1,8}$/u.test(utf8Text);
+}
 
 function valid_UTF16(utf16Text) {
   // Regular expression pattern to match valid UTF-16 encoded characters
@@ -83,7 +87,6 @@ function convert() {
   } else {
 
     //TODO: UTF-8 VALID CHECKER
-    //UTF-16 valid checker
     if (utf8Input != "") {
       if (!valid_UTF8(utf8Input)) {
         Swal.fire({
