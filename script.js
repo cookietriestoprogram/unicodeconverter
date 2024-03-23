@@ -4,6 +4,8 @@ function valid_unicode(i) {
   return /^[0-9A-Fa-f]{4,6}$/u.test(i);
 }
 
+//TODO: valid_utf8 function
+
 function valid_UTF16(utf16Text) {
   // Regular expression pattern to match valid UTF-16 encoded characters
   return /^[0-9A-Fa-f]{1,8}$/u.test(utf16Text);
@@ -62,6 +64,7 @@ function changeName() {
 function convert() {
   var translate = document.getElementById("toggle").checked;
   var unicodeInput = document.getElementById("unicode").value;
+  let utf8Input = document.getElementById("utf8").value;
   let utf16Input = document.getElementById("utf16").value;
   let utf32Input = document.getElementById("utf32").value;
 
@@ -77,7 +80,21 @@ function convert() {
       });
       return;
     }
-  } else {   
+  } else {
+
+    //TODO: UTF-8 VALID CHECKER
+    //UTF-16 valid checker
+    if (utf8Input != "") {
+      if (!valid_UTF8(utf8Input)) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter a valid UTF-8 character!",
+        });
+        return;
+      }
+    }
+
     //UTF-16 valid checker
     if (utf16Input != "") {
       if (!valid_UTF16(utf16Input)) {
@@ -102,6 +119,28 @@ function convert() {
       }
     }
 
+    // TODO: UTF-8 TO UNICODE
+    if (utf8Input != "") {
+      // Parsing UTF-8 input as hex
+      var utf8 = parseInt(utf8Input, 8);
+
+      // Converting UTF-8 to Unicode
+      var unicodeRep = translateUTF8(utf8);
+
+      document.getElementById("unicode").value = "U+" + unicodeRep;
+
+      conversions.push({
+          unicode: unicodeRep,
+          utf8: utf8Input,
+          utf16: "----",
+          utf32: "----",
+      });
+
+      updateRecommendations();
+
+      return;
+    }
+    // END UTF-8 TO UNICODE
 
     // UTF-16 to Unicode
     if (utf16Input != "") {
@@ -162,6 +201,36 @@ function convert() {
     document.getElementById("utf8steps").innerHTML = utf8Steps ;
     document.getElementById("utf16steps").innerHTML = utf16Steps ;
 }
+
+//TODO FUNCTION FOR translateUTF8
+function translateUTF8(utf8) {
+  // Convert the UTF-8 input to binary string
+  const binaryStr = parseInt(utf8, 16).toString(2).padStart(32, '0');
+
+  // Determine the number of bytes used in UTF-8 encoding
+  let numBytes;
+  if (binaryStr.startsWith('0')) {
+    numBytes = 1;
+  } else if (binaryStr.startsWith('110')) {
+    numBytes = 2;
+  } else if (binaryStr.startsWith('1110')) {
+    numBytes = 3;
+  } else if (binaryStr.startsWith('11110')) {
+    numBytes = 4;
+  } else {
+    // Invalid UTF-8 encoding
+    return "ERROR";
+  }
+
+  // Extract the bits representing the Unicode code point
+  const unicodeBits = binaryStr.slice(numBytes, numBytes * 7 + 1);
+
+  // Convert Unicode bits to decimal and then to hexadecimal
+  const unicodeHex = parseInt(unicodeBits, 2).toString(16);
+
+  return unicodeHex.toUpperCase();
+}
+
 
 function translateUTF16(utf16) {
   const upper = Math.floor(utf16 / 0x10000) - 0xd800;
