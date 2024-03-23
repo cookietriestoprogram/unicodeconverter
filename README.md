@@ -28,7 +28,7 @@ To convert Unicode to UTF-32, first ensure that the Unicode code point is within
 In the second section of the program, UTF encoded characters are then translated back into their Unicode equivalent. 
 
 **UTF-16 to Unicode** <br>
-To convert UTF-32 to Unicode, the inputted value must be have 1 to 8 hex digits because UTF-16 has max length encoding of 16 bits. If the input is valid, separate the UTF-16 code unit into upper and lower surrogates. Then calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit. For the lower surrogate value, subtract 0xdc00 lower-surrogate unit. The two surrogates result must then be combined and added with 0x10000 to translate it back to unicode.
+To convert UTF-32 to Unicode, the inputted value must have 1 to 8 hex digits because UTF-16 has max length encoding of 16 bits. If the input is valid, separate the UTF-16 code unit into upper and lower surrogates. Then calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit. For the lower surrogate value, subtract 0xdc00 lower-surrogate unit. The two surrogates result must then be combined and added with 0x10000 to translate it back to unicode.
 
 | Test with Input Error| Test with correct length |
 | ------- | ------- |
