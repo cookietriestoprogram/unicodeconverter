@@ -1,5 +1,5 @@
 function valid_unicode(i) {
-  return /^[0-9A-Fa-f]{4,6}$/u.test(i);
+  return /^[0-9A-Fa-f]{1,6}$/u.test(i);
 }
 
 function valid_UTF16(utf16Text) {
@@ -116,10 +116,7 @@ function convert() {
   let utf32Input = document.getElementById("utf32").value;
 
   if (translate == false) {
-    if (
-      !valid_unicode(unicodeInput) ||
-      (utf16Input != "" && unicodeInput == "")
-    ) {
+    if (!valid_unicode(unicodeInput)) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
