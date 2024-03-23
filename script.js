@@ -4,7 +4,6 @@ function valid_unicode(i) {
   return /^[0-9A-Fa-f]{4,6}$/u.test(i);
 }
 
-//TODO: valid_utf8 function
 function valid_UTF8(utf8Text) {
   // Regular expression pattern to match valid UTF-8 encoded characters
   return /^[0-9A-Fa-f]{1,8}$/u.test(utf8Text);
@@ -86,7 +85,6 @@ function convert() {
     }
   } else {
 
-    //TODO: UTF-8 VALID CHECKER
     if (utf8Input != "") {
       if (!valid_UTF8(utf8Input)) {
         Swal.fire({
@@ -122,7 +120,6 @@ function convert() {
       }
     }
 
-    // TODO: UTF-8 TO UNICODE
     if (utf8Input != "") {
       // Parsing UTF-8 input as hex
       var utf8 = parseInt(utf8Input, 16);
@@ -205,14 +202,13 @@ function convert() {
     document.getElementById("utf16steps").innerHTML = utf16Steps ;
 }
 
-  //TODO FUNCTION FOR translateUTF8
-  // Function to translate UTF-8 to Unicode
+  //TODO: translate UTF-8 to Unicode
   function translateUTF8(utf8) {
       // Convert the UTF-8 input to binary string
-      const binaryStr = utf8.toString(2).padStart(32, '0');
+      const binaryStr = utf8.toString(2).padStart(8, '0');
 
       //check binary string
-      console.log(binaryStr)
+      //console.log(binaryStr)
       
       // Determine the number of bytes used in UTF-8 encoding
       let numBytes;
@@ -229,7 +225,8 @@ function convert() {
           return "ERROR";
       }
 
-      // Extract the bits representing the Unicode code point
+      // TODO: Extract the bits representing the Unicode code point
+      // ERROR HERE
       const unicodeBits = [];
       for (let i = 0; i < numBytes; i++) {
           unicodeBits.push(binaryStr.slice(8 + i * 6, 8 + (i + 1) * 6));
