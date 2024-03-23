@@ -1,11 +1,12 @@
 body {
   font-family: "Segoe UI";
   margin: 0;
-  padding: 0;
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
   height: 100vh;
   gap: 3rem;
 }
@@ -14,14 +15,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
 }
-
-
 
 .container {
   /* border: 1px solid black; */
-  min-width: 600px;
+  min-width: 40vw;
   margin: auto;
   /* margin-top: 5%; */
   /* margin-bottom: 5%; */
@@ -42,7 +40,6 @@ body {
 .steps {
   background-color: #fef2cd; /* Pastel orange-yellow for background */
   border: 2px solid #ffdc7e; /* Light orange-yellow for border */
-
 }
 
 .header {
@@ -79,8 +76,7 @@ input[type="text"]:focus {
 
 button {
   /* background-color: #294622; */
-  
-  
+
   background-color: #e6f1e0; /* Pastel green for background */
   border: 2px solid #badbcc; /* Light green for border */
 
@@ -195,7 +191,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
 input[type="text"].disabled {
   border: 2px solid #f1f1f1;
   cursor: not-allowed;
@@ -214,4 +209,3 @@ input[type="text"].disabled {
 #download-btn:hover {
   background-color: #333;
 }
-
