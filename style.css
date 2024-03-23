@@ -160,3 +160,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+input[type="text"].disabled {
+  border: 2px solid black;
+  cursor: not-allowed;
+}

@@ -17,43 +17,62 @@ function clearInputs(){
   document.getElementById("utf8steps").innerHTML = "" ;
   document.getElementById("utf16steps").innerHTML = "" ;
 }
-
 function changeName() {
-  clearInputs()
-
-  let unicodeInput = document.getElementById("unicode");
-  let utf16Input = document.getElementById("utf16")
-  let utf8Input = document.getElementById("utf8")
-  let utf32Input = document.getElementById("utf32")
-
-
-  var translate = document.getElementById("toggle").checked;
-  var btn = document.getElementById("submit-btn");
-
-  var title = document.getElementById("title");
-
+  clearInputs();
+  
+  const unicodeInput = document.getElementById("unicode");
+  const utf16Input = document.getElementById("utf16");
+  const utf8Input = document.getElementById("utf8");
+  const utf32Input = document.getElementById("utf32");
+  
+  const translate = document.getElementById("toggle").checked;
+  const btn = document.getElementById("submit-btn");
+  const title = document.getElementById("title");
+  
   if (!translate) {
-    title.textContent = "UTF Translator";
-    btn.textContent = "Translate";
-    utf16Input.placeholder = "Ex: D803DFFF";
-    utf8Input.placeholder = "Ex: F090BFBF"
-    utf32Input.placeholder = "Ex: 00010FFF"
-    unicodeInput.disabled = true
-    unicodeInput.placeholder = ""
-
+    enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input);
+    disableUnicodeInput(unicodeInput);
   } else {
-    unicodeInput.disabled = false
-    title.textContent = "Unicode Converter";
-    btn.textContent = "Convert";
-    
-    unicodeInput.placeholder = "Enter Unicode (e.g., 20AC)"
-    utf16Input.placeholder = "";
-    utf8Input.placeholder = "";
-    utf32Input.placeholder = "";
-
-
+    enableUnicodeConversion(title, btn, unicodeInput);
+    disableUTFInputs(utf16Input, utf8Input, utf32Input);
   }
 }
+
+function enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input) {
+  title.textContent = "UTF Translator";
+  btn.textContent = "Translate";
+  utf16Input.placeholder = "Ex: D803DFFF";
+  utf8Input.placeholder = "Ex: F090BFBF";
+  utf32Input.placeholder = "Ex: 00010FFF";
+  
+  utf16Input.disabled = false;
+  utf8Input.disabled = false;
+  utf32Input.disabled = false;
+}
+
+function disableUnicodeInput(unicodeInput) {
+  unicodeInput.disabled = true;
+  unicodeInput.classList.add("disabled");
+  unicodeInput.placeholder = "";
+}
+
+function enableUnicodeConversion(title, btn, unicodeInput) {
+  title.textContent = "Unicode Converter";
+  btn.textContent = "Convert";
+  unicodeInput.disabled = false;
+  unicodeInput.classList.remove("disabled");
+  unicodeInput.placeholder = "Enter Unicode (e.g., 20AC)";
+}
+
+function disableUTFInputs(utf16Input, utf8Input, utf32Input) {
+  utf16Input.disabled = true;
+  utf8Input.disabled = true;
+  utf32Input.disabled = true;
+  utf16Input.placeholder = "";
+  utf8Input.placeholder = "";
+  utf32Input.placeholder = "";
+}
+
 
 function convert() {
   var translate = document.getElementById("toggle").checked;
@@ -63,7 +82,7 @@ function convert() {
   if (translate == false) {
     if (
       !valid_unicode(unicodeInput) ||
-      (utf16Input != "" && unicodeInput == "") // only allow utf translate when toggled
+      (utf16Input != "" && unicodeInput == "") 
     ) {
       Swal.fire({
         icon: "error",
