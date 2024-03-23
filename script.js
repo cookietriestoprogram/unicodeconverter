@@ -112,10 +112,11 @@ function disableUTFInputs(utf16Input, utf8Input, utf32Input) {
 function convert() {
   var translate = document.getElementById("toggle").checked;
   var unicodeInput = document.getElementById("unicode").value;
-  let utf16Input = document.getElementById("utf16").value;
-  let utf32Input = document.getElementById("utf32").value.padStart(8, "0");
+  let utf16Input = document.getElementById("utf16").value.padStart(8, "0");
+  let utf32Input = document.getElementById("utf32").value;
   let utf8Input = document.getElementById("utf8").value;
 
+  console.log(utf16Input)
   if (translate == false) {
     if (
       !valid_unicode(unicodeInput) ||
@@ -213,6 +214,9 @@ function translateUTF16(utf16) {
 
   const unicodeCodePoint = (upper << 10) + lower + 0x10000;
 
+  if(unicodeCodePoint < 0) {
+    return utf16.toString(16);
+  }
   return unicodeCodePoint.toString(16);
 }
 
