@@ -12,6 +12,7 @@ To chuchu.
 
 
 **UTF-32** is a fixed-length encoding scheme that uses four bytes for each character, providing a direct mapping between code points and bytes.
+
 To convert Unicode to UTF-32, first ensure that the Unicode code point is within the valid range for UTF-32, which is from 0x00000000 to 0x10FFFF. Since UTF-32 uses a fixed-length encoding scheme with four bytes for each character, providing a direct mapping between code points and bytes, the conversion process involves taking the Unicode code point and encoding it as a 32-bit sequence. This is done by converting the code point to its hexadecimal representation and then padding it with zeros to ensure it is 8 hexadecimal digits long, which corresponds to 4 bytes. This method ensures that each Unicode character is represented in UTF-32 as a fixed-length sequence.
 
 
