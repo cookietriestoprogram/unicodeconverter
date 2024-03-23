@@ -10,4 +10,4 @@ In the first section of the program we convert them to various UTF formats.
 **UTF-32** is a fixed-length encoding scheme that uses four bytes for each character, providing a direct mapping between code points and bytes.
 # Unicode translator 
 
-
+![UTF32_Unicode](UTF-32 to Unicode Error.png)
