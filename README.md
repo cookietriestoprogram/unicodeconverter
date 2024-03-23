@@ -20,6 +20,9 @@ To chuchu.
 **Unicode to UTF-32:**
 To convert Unicode to UTF-32, first ensure that the Unicode code point is within the valid range for UTF-32, which is from 0x00000000 to 0x10FFFF. Since UTF-32 uses a fixed-length encoding scheme with four bytes for each character, providing a direct mapping between code points and bytes, the conversion process involves taking the Unicode code point and encoding it as a 32-bit sequence. This is done by converting the code point to its hexadecimal representation and then padding it with zeros to ensure it is 8 hexadecimal digits long, which corresponds to 4 bytes. This method ensures that each Unicode character is represented in UTF-32 as a fixed-length sequence.
 
+| Functional Test Cases |
+| ------- | ------- |
+|![UTF16_Unicode](T1)|![UTF16_Unicode](T2)|![UTF16_Unicode](T3)|
 
 # Unicode translator 
 In the second section of the program, UTF encoded characters are then translated back into their Unicode equivalent. 
