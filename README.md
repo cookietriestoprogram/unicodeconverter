@@ -14,4 +14,4 @@ In the first section of the program we convert them to various UTF formats.
 To convert UTF-32 to Unicode first check if the number of hex digits are 8 since UTF-32 is uses fixed length encoding with 32 bits. 
 | Test with Input Error| Test with correct length |
 | ------- | ------- |
-|![UTF32_Unicode](UTF32-error.png)|![UTF32_Unicode](UTF32.png)|
+|![UTF32_Unicode](UTF32.png)|![UTF32_Unicode](UTF32-error.png)|
