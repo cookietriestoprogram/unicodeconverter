@@ -180,10 +180,20 @@ function convert() {
     }
 
     if(utf8Input != ""){
-      var unicodeRep = "U+" + translateUTF8(utf8Input).toUpperCase();
-      document.getElementById("unicode").value = unicodeRep;
-      enableDownloadButton();
-      return  0;
+      let res = translateUTF8(utf8Input)
+      if(res.length === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter a valid UTF-8 character!",
+        });
+        return;
+      } else {
+        var unicodeRep = "U+" + res.toUpperCase();
+        document.getElementById("unicode").value = unicodeRep;
+        enableDownloadButton();
+        return  0;
+      }
     }
   }
 
@@ -274,6 +284,10 @@ function translateUTF8(utf8Hex) {
     codepoint = ((bytes[0] - 0xE0) << 12) + ((bytes[1] - 0x80) << 6) + (bytes[2] - 0x80);
   } else if (bytes.length === 4) {
     codepoint = ((bytes[0] - 0xF0) << 18) + ((bytes[1] - 0x80) << 12) + ((bytes[2] - 0x80) << 6) + (bytes[3] - 0x80);
+  }
+
+  if(codepoint < 0) {
+    return ""
   }
 
   return codepoint.toString(16);
