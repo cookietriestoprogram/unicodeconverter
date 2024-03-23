@@ -112,8 +112,9 @@ function disableUTFInputs(utf16Input, utf8Input, utf32Input) {
 function convert() {
   var translate = document.getElementById("toggle").checked;
   var unicodeInput = document.getElementById("unicode").value;
-  let utf16Input = document.getElementById("utf16").value;
-  let utf32Input = document.getElementById("utf32").value;
+  let utf16Input = document.getElementById("utf16").value.padStart(8, "0");
+  let utf32Input = document.getElementById("utf32").value.padStart(8, "0");
+  let utf8Input = document.getElementById("utf8").value.padStart(8, "0");
 
   if (translate == false) {
     if (
@@ -175,6 +176,13 @@ function convert() {
 
       enableDownloadButton();
       return;
+    }
+
+    if(utf8Input != ""){
+      var unicodeRep = "U+" + translateUTF8(utf8Input).toUpperCase();
+      document.getElementById("unicode").value = unicodeRep;
+      enableDownloadButton();
+      return  0;
     }
   }
 
@@ -245,6 +253,28 @@ function generateUTF16toUnicodeSteps(utf16) {
 
   return steps.join(" <br> ");
 }
+
+function translateUTF8(utf8Hex) {
+  utf8Hex = utf8Hex.replace(/\s/g, '');
+
+  const hexPairs = utf8Hex.match(/.{1,2}/g);
+
+  const bytes = hexPairs.map(hex => parseInt(hex, 16));
+
+  let codepoint = 0;
+  if (bytes.length === 1) {
+    codepoint = bytes[0];
+  } else if (bytes.length === 2) {
+    codepoint = ((bytes[0] - 0xC0) << 6) + (bytes[1] - 0x80);
+  } else if (bytes.length === 3) {
+    codepoint = ((bytes[0] - 0xE0) << 12) + ((bytes[1] - 0x80) << 6) + (bytes[2] - 0x80);
+  } else if (bytes.length === 4) {
+    codepoint = ((bytes[0] - 0xF0) << 18) + ((bytes[1] - 0x80) << 12) + ((bytes[2] - 0x80) << 6) + (bytes[3] - 0x80);
+  }
+
+  return codepoint.toString(16);
+}
+
 
 function convertToUTF8(codepoint) {
   if (codepoint <= 0x7f) {
