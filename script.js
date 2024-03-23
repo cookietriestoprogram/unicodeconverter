@@ -219,17 +219,21 @@ function generateUTF16toUnicodeSteps(utf16) {
     "1: Separate the UTF-16 code unit into upper and lower surrogates."
   );
   steps.push(
-    `2: Calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit: ${upper
+    `2: Calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit: ${Math.floor(
+      utf16 / 0x10000
+    )
       .toString(16)
       .toUpperCase()}.`
   );
   steps.push(
-    `3: Calculate the lower surrogate value by subtracting 0xdc00 from the low-surrogate code unit: ${lower
+    `3: Calculate the lower surrogate value by subtracting 0xdc00 from the low-surrogate code unit: ${(
+      utf16 % 0x10000
+    )
       .toString(16)
       .toUpperCase()}.`
   );
   steps.push(
-    `4: Combine the upper and lower surrogates to obtain the Unicode code point.`
+    `4: Combine the upper and lower surrogates and add 0x10000 to obtain the Unicode code point.`
   );
   steps.push(
     `5: The Unicode code point corresponding to the given UTF-16 code unit is: ${unicodeCodePoint
