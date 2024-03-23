@@ -8,6 +8,10 @@ In the first section of the program we convert them to various UTF formats.
 **UTF-16** uses two or four bytes to represent each character. It is ideal for most Asian text but requires more bytes for English characters 1.
 
 **UTF-32** is a fixed-length encoding scheme that uses four bytes for each character, providing a direct mapping between code points and bytes.
-# Unicode translator 
 
-![UTF32_Unicode](UTF32.png)
+# Unicode translator 
+**UTF-32 to Unicode**
+To convert UTF-32 to Unicode first check if the number of hex digits are 8 since UTF-32 is uses fixed length encoding with 32 bits. 
+| Test with Input Error| Test with correct length |
+| ------- | ------- |
+|![UTF32_Unicode](UTF32-error.png)|![UTF32_Unicode](UTF32.png)|
