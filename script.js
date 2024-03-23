@@ -156,7 +156,10 @@ function convert() {
     // UTF-16 to Unicode
     if (utf16Input != "") {
       var utf16 = parseInt(utf16Input, 16);
-      if ((utf16) => 0xffff) {
+      if (utf16 <= 0xffff) {
+        utf16 = utf16.toString(16);
+        var unicodeRep = utf16.replace(/^0+/, "");
+      } else {
         var unicodeRep = translateUTF16(utf16);
       }
 
@@ -188,7 +191,7 @@ function convert() {
 
   // UNICODE to UTF
   var codepoint = parseInt(unicodeInput, 16);
-  console.log(codepoint)
+  console.log(codepoint);
   var utf8 = "0x " + convertToUTF8(codepoint).toUpperCase();
   var utf8Steps = generateUTF8ConversionSteps(codepoint);
 
