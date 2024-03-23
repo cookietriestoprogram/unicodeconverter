@@ -1,5 +1,5 @@
 function valid_unicode(i) {
-  return /^[0-9A-Fa-f]{4,6}$/u.test(i) || parseInt(i) === 0;
+  return (/^[0-9A-Fa-f]{4,6}$/u.test(i) && parseInt(i, 16) <= 0x10FFFF) || parseInt(i, 16) === 0;
 }
 
 function valid_UTF16(utf16Text) {
