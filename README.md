@@ -23,10 +23,11 @@ To convert Unicode to UTF-32, first ensure that the Unicode code point is within
 | Test Case 1 | Test Case 2 |
 | ------- | ------- |
 | ![Test 1](T1.png) | ![Test 2](T2.png) |
+| Input is Zero| Input is valid |
 
 | Test Case 3 | Test Case 4 |
-| ------- | ------- |
 | ![Test 3](T3.png) | ![Test 4](T4.png) |
+| Input is Valid | Invalid input |
 
 # Unicode translator 
 In the second section of the program, UTF encoded characters are then translated back into their Unicode equivalent. 
