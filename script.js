@@ -8,6 +8,11 @@ function valid_UTF16(utf16Text) {
   // Regular expression pattern to match valid UTF-16 encoded characters
   return /^[0-9A-Fa-f]{1,8}$/u.test(utf16Text);
 }
+function valid_UTF32(utf32Text) {
+  // Regular expression pattern to match valid UTF-32 encoded characters
+  return /^[0-9A-Fa-f]{8}$/u.test(utf32Text);
+}
+
 
 function clearInputs(){
   document.getElementById("unicode").value = "";
@@ -78,6 +83,7 @@ function convert() {
   var translate = document.getElementById("toggle").checked;
   var unicodeInput = document.getElementById("unicode").value;
   let utf16Input = document.getElementById("utf16").value;
+  let utf32Input = document.getElementById("utf32").value;
 
   if (translate == false) {
     if (
@@ -91,16 +97,31 @@ function convert() {
       });
       return;
     }
-  } else {
+  } else {   
     //UTF-16 valid checker
-    if (!valid_UTF16(utf16Input) || utf16Input == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter a valid UTF-16 character!",
-      });
-      return;
+    if (utf16Input != "") {
+      if (!valid_UTF16(utf16Input)) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter a valid UTF-16 character!",
+        });
+        return;
+      }
     }
+
+    //UTF-32 valid checker
+    if (utf32Input != "") {
+      if (!valid_UTF32(utf32Input)) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please enter a valid UTF-32 character!",
+        });
+        return;
+      }
+    }
+
 
     // UTF-16 to Unicode
     if (utf16Input != "") {
@@ -123,6 +144,21 @@ function convert() {
 
       updateRecommendations();
 
+      return;
+    }
+
+    if (utf32Input != "") {
+      var unicodeRep = "U+" + utf32Input;
+      document.getElementById("unicode").value = unicodeRep;
+
+      conversions.push({
+        unicode: unicodeRep,
+        utf8: "----",
+        utf16: "----",
+        utf32: utf32Input,
+      });
+      
+      updateRecommendations();
       return;
     }
   }
@@ -188,6 +224,8 @@ function convertToUTF8(codepoint) {
     );
   }
 }
+
+
 function generateUTF8ConversionSteps(codepoint) {
   let steps = [];
 
@@ -248,7 +286,7 @@ function generateUTF16ConversionSteps(codepoint) {
 
   if (codepoint <= 0xffff) {
     steps.push("Step 1: This Unicode code point can be represented by a single UTF-16 code unit.");
-    steps.push(`Step 2:Convert the code point ${codepoint.toString(16).padStart(4, "0").toUpperCase()} to UTF-16: ${"0x" + codepoint.toString(16).padStart(4, "0").toUpperCase()}.`);
+    steps.push(`Step 2: Convert the code point ${codepoint.toString(16).padStart(4, "0").toUpperCase()} to UTF-16: ${"0x" + codepoint.toString(16).padStart(4, "0").toUpperCase()}.`);
   } else {
     const highSurrogate = Math.floor((codepoint - 0x10000) / 0x400) + 0xd800;
     const lowSurrogate = ((codepoint - 0x10000) % 0x400) + 0xdc00;
