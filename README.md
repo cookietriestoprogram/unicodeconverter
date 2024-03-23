@@ -75,3 +75,6 @@ In the second section of the program, UTF encoded characters are then translated
 | Test with Input Error| Test with correct length |
 | ------- | ------- |
 |![UTF32_Unicode](UTF32.png)|![UTF32_Unicode](UTF32-error.png)|
+
+# Analysis
+One of the challenges faced by the group was dealing with the varying lengths of the input data. It was crucial to address this issue effectively in the coding process to ensure that the output format remained consistent and correct regardless of the input length. To tackle this challenge, the group implemented a padding technique wherein the input sequences were padded to the maximum length of particular encoding-scheme.  By doing so, uniformity was achieved without altering the original values of the inputs. 
