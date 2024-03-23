@@ -24,6 +24,7 @@ To convert Unicode to UTF-32, first ensure that the Unicode code point is within
 | ------- | ------- |
 | ![Test 1](T1.png) | ![Test 2](T2.png) |
 | Test Case 3 | Test Case 4 |
+| ------- | ------- |
 | ![Test 3](T3.png) | ![Test 4](T4.png) |
 
 # Unicode translator 
