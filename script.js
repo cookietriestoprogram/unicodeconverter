@@ -113,7 +113,7 @@ function convert() {
   var translate = document.getElementById("toggle").checked;
   var unicodeInput = document.getElementById("unicode").value;
   let utf16Input = document.getElementById("utf16").value;
-  let utf32Input = document.getElementById("utf32").value;
+  let utf32Input = document.getElementById("utf32").value.padStart(8, "0");
   let utf8Input = document.getElementById("utf8").value;
 
   if (translate == false) {
