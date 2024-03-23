@@ -1,4 +1,3 @@
-var conversions = [];
 
 function valid_unicode(i) {
   return /^[0-9A-Fa-f]{4,6}$/u.test(i);
@@ -15,6 +14,8 @@ function valid_UTF32(utf32Text) {
 
 
 function clearInputs(){
+  console.log("clearing inputs")
+  document.getElementById("download-btn").style.display = "none"; 
   document.getElementById("unicode").value = "";
   document.getElementById("utf8").value = "";
   document.getElementById("utf16").value = "";
@@ -22,6 +23,11 @@ function clearInputs(){
   document.getElementById("utf8steps").innerHTML = "" ;
   document.getElementById("utf16steps").innerHTML = "" ;
 }
+
+function enableDownloadButton(){
+  document.getElementById("download-btn").style.display = "block";
+}
+
 function changeName() {
   clearInputs();
   
@@ -33,26 +39,35 @@ function changeName() {
   const translate = document.getElementById("toggle").checked;
   const btn = document.getElementById("submit-btn");
   const title = document.getElementById("title");
+  const steps8 = document.getElementById("8steps");
+  const steps16 = document.getElementById("16steps");
   
   if (!translate) {
-    enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input);
+    enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input, steps8, steps16);
     disableUnicodeInput(unicodeInput);
   } else {
-    enableUnicodeConversion(title, btn, unicodeInput);
+    enableUnicodeConversion(title, btn, unicodeInput, steps8, steps16);
     disableUTFInputs(utf16Input, utf8Input, utf32Input);
   }
 }
 
-function enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input) {
+function enableUTFTranslation(title, btn, utf16Input, utf8Input, utf32Input, steps8, steps16) {
   title.textContent = "UTF Translator";
+  steps8.textContent = "UTF 8 to Unicode Steps"
+  steps16.textContent = "UTF 16 to Unicode Steps"
   btn.textContent = "Translate";
-  utf16Input.placeholder = "Ex: D803DFFF";
   utf8Input.placeholder = "Ex: F090BFBF";
+  utf16Input.placeholder = "Ex: D803DFFF";
   utf32Input.placeholder = "Ex: 00010FFF";
+
+  let inputs = [utf16Input, utf8Input, utf32Input]
+
+  inputs.forEach(input => {
+
+    input.disabled = false;
+    input.classList.remove("disabled");
+  })
   
-  utf16Input.disabled = false;
-  utf8Input.disabled = false;
-  utf32Input.disabled = false;
 }
 
 function disableUnicodeInput(unicodeInput) {
@@ -61,8 +76,10 @@ function disableUnicodeInput(unicodeInput) {
   unicodeInput.placeholder = "";
 }
 
-function enableUnicodeConversion(title, btn, unicodeInput) {
+function enableUnicodeConversion(title, btn, unicodeInput, steps8, steps16) {
   title.textContent = "Unicode Converter";
+  steps8.textContent = "Unicode to UTF 8 Steps"
+  steps16.textContent = "Unicode to UTF 16 Steps"
   btn.textContent = "Convert";
   unicodeInput.disabled = false;
   unicodeInput.classList.remove("disabled");
@@ -70,12 +87,15 @@ function enableUnicodeConversion(title, btn, unicodeInput) {
 }
 
 function disableUTFInputs(utf16Input, utf8Input, utf32Input) {
-  utf16Input.disabled = true;
-  utf8Input.disabled = true;
-  utf32Input.disabled = true;
-  utf16Input.placeholder = "";
-  utf8Input.placeholder = "";
-  utf32Input.placeholder = "";
+  let inputs = [utf16Input, utf8Input, utf32Input]
+
+  inputs.forEach(input => {
+    input.disabled = true;
+    input.placeholder = "";
+    input.classList.add("disabled");
+    // console.log(input)
+  })
+  
 }
 
 
@@ -133,32 +153,22 @@ function convert() {
         var unicodeRep = translateUTF16(utf16);
       }
 
-      document.getElementById("unicode").value = "U+" + unicodeRep;
+      let steps16 = generateUTF16toUnicodeSteps(utf16);
+      document.getElementById("utf16steps").innerHTML = steps16 ;
 
-      conversions.push({
-        unicode: unicodeRep,
-        utf8: "----",
-        utf16: utf16Input,
-        utf32: "----",
-      });
 
-      updateRecommendations();
-
+      document.getElementById("unicode").value = "U+" + unicodeRep.toUpperCase();
+      enableDownloadButton()
+     
       return;
     }
 
     if (utf32Input != "") {
-      var unicodeRep = "U+" + utf32Input;
+      var unicodeRep = "U+" + utf32Input.replace(/^0+/, "").toUpperCase();
       document.getElementById("unicode").value = unicodeRep;
 
-      conversions.push({
-        unicode: unicodeRep,
-        utf8: "----",
-        utf16: "----",
-        utf32: utf32Input,
-      });
       
-      updateRecommendations();
+      enableDownloadButton()
       return;
     }
   }
@@ -167,20 +177,22 @@ function convert() {
 
   // UNICODE to UTF
   var codepoint = parseInt(unicodeInput, 16);
-  var utf8 = convertToUTF8(codepoint).toUpperCase();
+  var utf8 = '0x ' + convertToUTF8(codepoint).toUpperCase();
   var utf8Steps = generateUTF8ConversionSteps(codepoint);
 
-  // console.log(utf8Steps)
-  var utf16 = convertToUTF16(codepoint).toUpperCase();
+  var utf16 = '0x ' + convertToUTF16(codepoint).toUpperCase();
   var utf16Steps = generateUTF16ConversionSteps(codepoint);
 
   document.getElementById("utf8").value = utf8;
+
   document.getElementById("utf16").value = utf16;
   document.getElementById("utf32").value =
-    "0x " + codepoint.toString(16).padStart(8, "0");
+    "0x " + codepoint.toString(16).padStart(8, "0").toUpperCase();
 
-    document.getElementById("utf8steps").innerHTML = utf8Steps ;
-    document.getElementById("utf16steps").innerHTML = utf16Steps ;
+  document.getElementById("utf8steps").innerHTML = utf8Steps ;
+  document.getElementById("utf16steps").innerHTML = utf16Steps ;
+
+  enableDownloadButton()
 }
 
 function translateUTF16(utf16) {
@@ -192,9 +204,27 @@ function translateUTF16(utf16) {
   return unicodeCodePoint.toString(16);
 }
 
+function generateUTF16toUnicodeSteps(utf16) {
+  let steps = [];
+
+  const upper = Math.floor(utf16 / 0x10000) - 0xd800;
+  const lower = (utf16 % 0x10000) - 0xdc00;
+
+  const unicodeCodePoint = (upper << 10) + lower + 0x10000;
+
+  steps.push("1: Separate the UTF-16 code unit into upper and lower surrogates.");
+  steps.push(`2: Calculate the upper surrogate value by subtracting 0xd800 from the high-surrogate code unit: ${upper.toString(16).toUpperCase()}.`);
+  steps.push(`3: Calculate the lower surrogate value by subtracting 0xdc00 from the low-surrogate code unit: ${lower.toString(16).toUpperCase()}.`);
+  steps.push(`4: Combine the upper and lower surrogates to obtain the Unicode code point.`);
+  steps.push(`5: The Unicode code point corresponding to the given UTF-16 code unit is: ${unicodeCodePoint.toString(16).toUpperCase()}.`);
+
+  return steps.join(" <br> ");
+}
+
+
 function convertToUTF8(codepoint) {
   if (codepoint <= 0x7f) {
-    return "0x " + codepoint.toString(16).padStart(2, "0");
+    return codepoint.toString(16).padStart(2, "0");
   } else if (codepoint <= 0x7ff) {
     return (
       "0x " +
@@ -204,7 +234,6 @@ function convertToUTF8(codepoint) {
     );
   } else if (codepoint <= 0xffff) {
     return (
-      "0x " +
       ((codepoint >> 12) + 0xe0).toString(16).padStart(2, "0") +
       " " +
       (((codepoint >> 6) & 0x3f) + 0x80).toString(16).padStart(2, "0") +
@@ -213,7 +242,6 @@ function convertToUTF8(codepoint) {
     );
   } else {
     return (
-      "0x " +
       ((codepoint >> 18) + 0xf0).toString(16).padStart(2, "0") +
       " " +
       (((codepoint >> 12) & 0x3f) + 0x80).toString(16).padStart(2, "0") +
@@ -268,12 +296,11 @@ function generateUTF8ConversionSteps(codepoint) {
 
 function convertToUTF16(codepoint) {
   if (codepoint <= 0xffff) {
-    return "0x " + codepoint.toString(16).padStart(4, "0");
+    return codepoint.toString(16).padStart(4, "0");
   } else {
     var highSurrogate = Math.floor((codepoint - 0x10000) / 0x400) + 0xd800;
     var lowSurrogate = ((codepoint - 0x10000) % 0x400) + 0xdc00;
     return (
-      "0x " +
       highSurrogate.toString(16).padStart(4, "0") +
       " " +
       lowSurrogate.toString(16).padStart(4, "0")
@@ -288,14 +315,67 @@ function generateUTF16ConversionSteps(codepoint) {
     steps.push("Step 1: This Unicode code point can be represented by a single UTF-16 code unit.");
     steps.push(`Step 2: Convert the code point ${codepoint.toString(16).padStart(4, "0").toUpperCase()} to UTF-16: ${"0x" + codepoint.toString(16).padStart(4, "0").toUpperCase()}.`);
   } else {
+    const subtracted = codepoint - 0x10000;
     const highSurrogate = Math.floor((codepoint - 0x10000) / 0x400) + 0xd800;
     const lowSurrogate = ((codepoint - 0x10000) % 0x400) + 0xdc00;
-    steps.push("Step 1:This Unicode code point requires two UTF-16 code units (surrogate pair) for representation.");
-    steps.push(`Step 2:Calculate the high surrogate: ${highSurrogate.toString(16).padStart(4, "0").toUpperCase()} (for the range 0xd800 to 0xdbff).`);
-    steps.push(`Step 3:Calculate the low surrogate: ${lowSurrogate.toString(16).padStart(4, "0").toUpperCase()} (for the range 0xdc00 to 0xdfff).`);
-    steps.push(`Step 4:Combine the high and low surrogates to represent the code point.`);
-    steps.push(`Step 5:Convert the code point ${codepoint.toString(16).padStart(6, "0").toUpperCase()} to UTF-16: ${"0x" + highSurrogate.toString(16).padStart(4, "0").toUpperCase()} ${"0x" + lowSurrogate.toString(16).padStart(4, "0").toUpperCase()}.`);
+    const highSurrogateBinary = (highSurrogate - 0xd800).toString(2).padStart(10, "0");
+    const lowSurrogateBinary = (lowSurrogate - 0xdc00).toString(2).padStart(10, "0");
+
+    steps.push("Step 1: This Unicode code point requires two UTF-16 code units (surrogate pair) for representation.");
+    steps.push(`Step 2: Calculate the high surrogate:`);
+    steps.push(`        - Subtract 0x10000 from the code point to get a 20-bit number in binary ${subtracted.toString(2).padStart(20, "0")}.`);
+    steps.push(`        - Separate the top ten bits: ${highSurrogateBinary}`);
+    steps.push(`        - Add 0xD800 to these ten bits to obtain the high surrogate: ${highSurrogate.toString(16).padStart(4, "0").toUpperCase()}.`);
+    steps.push(`Step 3: Calculate the low surrogate:`);
+    steps.push(`        - Take the remainder of dividing the code point by 0x400.`);
+    steps.push(`        - Separate the low ten bits: ${lowSurrogateBinary}`);
+    steps.push(`        - Add 0xDC00 to these ten bits to obtain the low surrogate: ${lowSurrogate.toString(16).padStart(4, "0").toUpperCase()}.`);
+    steps.push(`Step 4: Combine the high and low surrogates to represent the code point.`);
+    steps.push(`Step 5: Convert the code point ${codepoint.toString(16).padStart(6, "0").toUpperCase()} to UTF-16: ${"0x" + highSurrogate.toString(16).padStart(4, "0").toUpperCase()} ${"0x" + lowSurrogate.toString(16).padStart(4, "0").toUpperCase()}.`);
   }
 
-  return steps.join(" <br> ");
+  return steps.join("<br>");
+}
+
+function initialize(){
+  const unicodeInput = document.getElementById("unicode");
+  const utf16Input = document.getElementById("utf16");
+  const utf8Input = document.getElementById("utf8");
+  const utf32Input = document.getElementById("utf32");
+
+  disableUTFInputs(utf16Input, utf8Input, utf32Input);
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  initialize()
+});
+
+
+function downloadToText(){
+  const unicodeInput = document.getElementById("unicode").value;
+    const utf16Input = document.getElementById("utf16").value;
+    const utf8Input = document.getElementById("utf8").value;
+    const utf32Input = document.getElementById("utf32").value;
+
+    const combinedContent = `Unicode: ${unicodeInput}\nUTF-16: ${utf16Input}\nUTF-8: ${utf8Input}\nUTF-32: ${utf32Input}`;
+
+    const blob = new Blob([combinedContent], { type: "text/plain" });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "text_file.txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
 }

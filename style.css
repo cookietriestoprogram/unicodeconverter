@@ -2,18 +2,47 @@ body {
   font-family: "Segoe UI";
   margin: 0;
   padding: 0;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  height: 100vh;
+  gap: 3rem;
 }
 
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+}
+
+
+
 .container {
+  /* border: 1px solid black; */
   min-width: 600px;
   margin: auto;
-  padding: 20px;
+  /* margin-top: 5%; */
+  /* margin-bottom: 5%; */
+  padding: 40px;
   border-radius: 45px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.members {
+  /* border: 1px solid #4caf50;
+  background-color: #93e195; */
+  background-color: #f9dee2; /* Pastel pink for background */
+  border: 2px solid #f4acb7; /* Light pink for border */
+  max-height: 60px;
+  padding-top: 0px;
+  color: #555;
+}
+
+.steps {
+  background-color: #fef2cd; /* Pastel orange-yellow for background */
+  border: 2px solid #ffdc7e; /* Light orange-yellow for border */
+
 }
 
 .header {
@@ -38,7 +67,7 @@ input[type="text"] {
   margin-bottom: 20px;
   border-radius: 8px;
   border: none;
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
   box-sizing: border-box;
   font-size: 16px;
   transition: border-color 0.3s ease;
@@ -49,11 +78,16 @@ input[type="text"]:focus {
 }
 
 button {
-  background-color: #4caf50;
-  color: white;
+  /* background-color: #294622; */
+  
+  
+  background-color: #e6f1e0; /* Pastel green for background */
+  border: 2px solid #badbcc; /* Light green for border */
+
+  /* color: white; */
+  /* border: none; */
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
@@ -62,7 +96,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #89caad;
 }
 
 /* Progress bar */
@@ -163,6 +197,21 @@ input:checked + .slider:before {
 
 
 input[type="text"].disabled {
-  border: 2px solid black;
+  border: 2px solid #f1f1f1;
   cursor: not-allowed;
 }
+
+#steps {
+  font-size: 11px;
+}
+
+#download-btn {
+  background-color: #bbb;
+  border: 2px solid #999;
+  display: none;
+}
+
+#download-btn:hover {
+  background-color: #333;
+}
+
