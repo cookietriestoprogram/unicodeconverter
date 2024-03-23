@@ -11,4 +11,3 @@ In the first section of the program we convert them to various UTF formats.
 # Unicode translator 
 
 
-(UTF-32 to Unicode Error.png)
